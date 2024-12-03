@@ -46,7 +46,7 @@ namespace Api_Videojuego.Controllers
 
 
 
-        [HttpPut]
+        [HttpPut("update-juego-by-id/{id}")]
         public IActionResult UpdateJuegoById(int id, [FromBody]JuegoVM juego)
         {
             var updateJuego = _juegosServicios.UpdateJuegoById(id, juego);
