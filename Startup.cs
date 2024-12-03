@@ -1,4 +1,5 @@
 using Api_Videojuego.Data;
+using Api_Videojuego.Data.Servicios;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -34,6 +35,9 @@ namespace Api_Videojuego
             services.AddControllers();
             //Configurar DBContext con SQL
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(ConnectionString));
+
+            //Configurar el servicio para que pueda ser usado
+            services.AddTransient<JuegosServicios>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Api_Videojuego", Version = "v1" });
