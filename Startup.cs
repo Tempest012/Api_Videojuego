@@ -38,6 +38,9 @@ namespace Api_Videojuego
 
             //Configurar el servicio para que pueda ser usado
             services.AddTransient<JuegosServicios>();
+            services.AddTransient<DesarrolladoraServicios>();
+            services.AddTransient<EmpresaServicios>();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Api_Videojuego", Version = "v1" });
@@ -64,7 +67,7 @@ namespace Api_Videojuego
             {
                 endpoints.MapControllers();
             });
-            AppDbInitialer.Seed(app);
+            //AppDbInitialer.Seed(app);
         }
     }
 }
