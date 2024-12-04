@@ -52,5 +52,11 @@ namespace Api_Videojuego.Controllers
             var updateJuego = _juegosServicios.UpdateJuegoById(id, juego);
             return Ok(updateJuego);
         }
+        [HttpDelete("delete-juego-by-id/{id}")]
+        public IActionResult DeleteJuegoById(int id)
+        {
+            _juegosServicios.DeleteJuegoById(id);
+            return Ok();
+        }
     }
 }

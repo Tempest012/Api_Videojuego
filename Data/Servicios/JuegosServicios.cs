@@ -52,5 +52,15 @@ namespace Api_Videojuego.Data.Servicios
             }
             return _juego;
         }
+
+        public void DeleteJuegoById(int juegosid)
+        {
+            var _juego = _context.Juegos.FirstOrDefault(n => n.Id==juegosid);
+            if(_juego != null)
+            {
+                _context.Juegos.Remove( _juego );
+                _context.SaveChanges();
+            }
+        }
     }
 }
