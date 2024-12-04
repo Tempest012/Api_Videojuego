@@ -15,17 +15,29 @@ namespace Api_Videojuego.Data.Servicios
         }
 
         // Método que nos permite agregar un nuevo juego en la BD
-        public void AddJuego(JuegoVM juego)
+        public void AddJuegoWithDesarrolladoras(JuegoVM juego)
         {
             var _juego = new Juegos()
             {
                 Nombre = juego.Nombre,
                 Descripción = juego.Descripción,
                 Genero = juego.Genero,
-                FechaDeLanzamiento = juego.FechaDeLanzamiento
+                FechaDeLanzamiento = juego.FechaDeLanzamiento,
+                EmpresaId = juego.EmpresaID
             };
             _context.Juegos.Add(_juego);
             _context.SaveChanges();
+
+            foreach(var id in juego.DesarrolladoraIDs)
+            {
+                var _juegos_Desarrolladora = new Juegos_Desarrolladora()
+                {
+                    IdJuegos= _juego.Id,
+                    IdDesarrolladora = id
+                };
+                _context.Juegos_Desarrolladoras.Add(_juegos_Desarrolladora);
+                _context.SaveChanges();
+            }
         }
 
 
@@ -34,7 +46,19 @@ namespace Api_Videojuego.Data.Servicios
 
 
         // Método que nos permite obtener el juego que estamos pidiendo de la BD
-        public Juegos GetJuegoById(int juegosid) => _context.Juegos.FirstOrDefault(n => n.Id == juegosid);
+        public JuegoWithDesarrolladoraVM GetJuegoById(int juegosid)
+        {
+            var _juegoWithDesarrolladoras = _context.Juegos.Where(n => n.Id == juegosid).Select(juego => new JuegoWithDesarrolladoraVM()
+            {
+                Nombre = juego.Nombre,
+                Descripción = juego.Descripción,
+                Genero = juego.Genero,
+                FechaDeLanzamiento = juego.FechaDeLanzamiento,
+                EmpresaName = juego.Empresa.Name,
+                DesarrolladoraNames = juego.Juegos_Desarrolladoras.Select(n => n.Desarrolladora.Name).ToList()
+            }).FirstOrDefault();
+            return _juegoWithDesarrolladoras;
+        }
 
 
         // Método que nos permite modificar un juego que se encuentra en la BD

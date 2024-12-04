@@ -37,10 +37,10 @@ namespace Api_Videojuego.Controllers
 
 
 
-        [HttpPost("add-juego")]
+        [HttpPost("add-juego-with-desarrolladoras")]
         public IActionResult AddJuego([FromBody]JuegoVM juego)
         {
-            _juegosServicios.AddJuego(juego);
+            _juegosServicios.AddJuegoWithDesarrolladoras(juego);
             return Ok();
         }
 
