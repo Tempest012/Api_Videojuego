@@ -55,7 +55,32 @@ namespace Api_Videojuego.Controllers
         public IActionResult GetEmpresaData(int id)
         {
             var _response = _empresaServicios.GetEmpresaData(id);
-            return Ok(_response);
+            if (_response != null)
+            {
+                return Ok(_response);
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+
+
+
+        [HttpPut("update-empresa-by-id/{id}")]
+        public IActionResult UpdateEmpresaById(int id, [FromBody] EmpresaVM empresa)
+        {
+            var updateEmpresa = _empresaServicios.UpdateEmpresaById(id, empresa);
+
+            if (updateEmpresa != null)
+            {
+                return Ok(updateEmpresa);
+
+            }
+            else
+            {
+                return NotFound();
+            }
         }
 
 

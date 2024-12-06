@@ -85,6 +85,10 @@ namespace Api_Videojuego.Data.Servicios
                 _context.Juegos.Remove( _juego );
                 _context.SaveChanges();
             }
+            else
+            {
+                throw new Exception($"La empresa con el id: {juegosid} no existe!");
+            }
         }
     }
 }

@@ -50,6 +50,17 @@ namespace Api_Videojuego.Data.Servicios
             return _empresaData;
         }
 
+        public Empresa UpdateEmpresaById(int empresaid, EmpresaVM empresa)
+        {
+            var _empresa = _context.Empresas.FirstOrDefault(n => n.Id == empresaid);
+            if (_empresa != null)
+            {
+                _empresa.Name = empresa.Name;
+
+                _context.SaveChanges();
+            }
+            return _empresa;
+        }
 
 
         internal void DeleteEmpresaById(int id)
@@ -65,5 +76,7 @@ namespace Api_Videojuego.Data.Servicios
                 throw new Exception($"La empresa con el id: {id} no existe!");
             }
         }
+
+       
     }
 }
